@@ -1,0 +1,13 @@
+{application, tak,
+ [
+   {description, "tak"}
+  ,{vsn, "0.1.0"}
+  ,{registered, []}
+  ,{applications,
+    [kernel
+     ,stdlib
+    ]}
+  ,{env,
+    [
+    ]}
+ ]}.
