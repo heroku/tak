@@ -1,11 +1,12 @@
 {application, tak,
  [
-   {description, "tak"}
+   {description, "Tak: A Certificate pinning library"}
   ,{vsn, "0.1.0"}
   ,{registered, []}
   ,{applications,
     [kernel
      ,stdlib
+     ,public_key
     ]}
   ,{env,
     [
