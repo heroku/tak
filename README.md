@@ -38,3 +38,18 @@ Then when you want to connect to the service:
     ssl:connect("service.example.com", 443, ServiceSSLOptions).
 
 This will then connect to the service and validate that the certificate the server presents is exactly the same as our copy.
+
+Advice
+------
+
+Turning the PEM data into the certificate chain and then the SSL options is a somewhat expensive process. Why not do that once at startup and then store it in the application environment for your OTP app?
+
+    application:set_env(my_cool_app, service_ssl_options,
+                        tak:chain_to_ssl_options(tak:pem_to_cert_chain(PemData))).
+
+Then when you need to use it, just:
+
+    ssl:connect("service.example.com", 443,
+                application:get_env(my_cool_app, service_ssl_options)).
+
+This makes sure the processing happens once and is stored in ETS for quick use at connect time.
