@@ -48,7 +48,7 @@ Advice
 
 Turning the PEM data into the certificate chain and then the SSL options is a somewhat expensive process. Why not do that once at startup and then store it in the application environment for your OTP app?
 
-    load_ssl_option(PemData) ->
+    load_ssl_options(PemData) ->
         application:set_env(my_cool_app, service_ssl_options,
                             tak:pem_to_ssl_options(PemData)).
 
