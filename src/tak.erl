@@ -16,6 +16,7 @@
 %% SSL connection helper functions
 -export([chain_to_ssl_options/1
         ,pin_to_ssl_options/1
+        ,pem_to_ssl_options/1
         ]).
 
 %% SSL Callback function.
@@ -31,10 +32,15 @@
 -type cert_chain() :: [cert()].
 -type pin() :: {CACert::cert(),
                 PinnedCert::cert()}.
+-type ssl_options() :: [ssl:ssl_option()].
 
 %%====================================================================
 %% API
 %%====================================================================
+
+-spec pem_to_ssl_options(pem_data()) -> ssl_options().
+pem_to_ssl_options(Pem) ->
+    chain_to_ssl_options(pem_to_cert_chain(Pem)).
 
 -spec pem_to_cert_chain(pem_data()) -> cert_chain().
 pem_to_cert_chain(Pem) ->

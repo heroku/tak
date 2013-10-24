@@ -32,6 +32,12 @@ You can even pre-prepare the options you'll need to pass to the `ssl` library:
 
     ServiceSSLOptions = tak:chain_to_ssl_options(ServiceCertChain).
 
+Or you can skip a few steps:
+
+    FileName = filename:join(code:priv_dir(?MODULE),
+                             "service_certs.pem"),
+    {ok, PemData} = file:read_file(FileName),
+    ServiceSSLOptions = tak:pem_to_ssl_options(PemData).
 
 Then when you want to connect to the service:
 
@@ -44,8 +50,9 @@ Advice
 
 Turning the PEM data into the certificate chain and then the SSL options is a somewhat expensive process. Why not do that once at startup and then store it in the application environment for your OTP app?
 
-    application:set_env(my_cool_app, service_ssl_options,
-                        tak:chain_to_ssl_options(tak:pem_to_cert_chain(PemData))).
+    load_ssl_option(PemData) ->
+        application:set_env(my_cool_app, service_ssl_options,
+                            tak:pem_to_ssl_options(PemData)).
 
 Then when you need to use it, just:
 
