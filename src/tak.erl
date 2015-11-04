@@ -125,6 +125,8 @@ verify_pin(PinCert, valid_peer, PinCert) ->
     {valid, PinCert};
 verify_pin(_Cert, {extension, _}, PinCert) ->
     {unknown, PinCert};
+verify_pin(PinCert, {bad_cert, selfsigned_peer}, PinCert) ->
+    {valid, PinCert};
 verify_pin(_Cert, {bad_cert, _} = Reason, _PinCert) ->
     {fail, Reason};
 verify_pin(_Cert, valid, PinCert) ->
