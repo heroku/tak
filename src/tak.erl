@@ -27,7 +27,7 @@
 
 %% Types
 
--type pem_data() :: iolist().
+-type pem_data() :: iodata().
 -type cert() :: #'OTPCertificate'{}.
 -type cert_chain() :: [cert()].
 -type pin() :: {CACert::cert(),
